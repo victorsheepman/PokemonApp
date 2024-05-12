@@ -15,10 +15,12 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, dev!")
-            
-            Button("Fetch Data"){
-                viewModel.getDataModel()
+            List(viewModel.posts, id:\.id){ post in
+                Text(post.title)
             }
+        }
+        .onAppear{
+            viewModel.fetchPosts()
         }
     }
 }

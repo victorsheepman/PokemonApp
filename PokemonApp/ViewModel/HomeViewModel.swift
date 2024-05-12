@@ -20,7 +20,19 @@ struct DataModel: Decodable {
 
 
 class HomeViewModel: ObservableObject {
+    private var cancellables = Set<AnyCancellable>()
+    private let apiClient = ApiClient()
     
+    @Published var posts: [DataModel] = []
+    
+    func fetchPosts(){
+        apiClient.fetchPost()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {_ in}){posts in
+                self.posts = posts
+            }
+            .store(in: &cancellables)
+    }
     
     
 }
