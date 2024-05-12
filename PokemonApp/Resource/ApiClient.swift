@@ -10,9 +10,9 @@ import Combine
 
 
 class ApiClient {
-    let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+    let url = URL(string: Constansts.MainURL.main+Constansts.Endpoints.pokemonList)!
     
-    func fetchPost() -> AnyPublisher<[DataModel], Error> {
+    func fetchData() -> AnyPublisher<PokemonResponseDataModel, Error> {
         URLSession.shared.dataTaskPublisher(for: url)
             .tryMap() { element -> Data in
                    guard let httpResponse = element.response as? HTTPURLResponse,
@@ -21,7 +21,7 @@ class ApiClient {
                        }
                    return element.data
             }
-            .decode(type: [DataModel].self, decoder: JSONDecoder())
+            .decode(type: PokemonResponseDataModel.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
 }

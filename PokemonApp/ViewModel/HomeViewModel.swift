@@ -8,28 +8,30 @@
 import Foundation
 import Combine
 
-struct DataModel: Decodable {
-    let userID, id: Int
-    let title, body: String
 
-    enum CodingKeys: String, CodingKey {
-        case userID = "userId"
-        case id, title, body
-    }
-}
 
 
 class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let apiClient = ApiClient()
+    private let pokemonSeletectedApi = PokemonSelectedApi()
     
-    @Published var posts: [DataModel] = []
+    @Published var pokemons: [PokemonDataModel] = []
     
-    func fetchPosts(){
-        apiClient.fetchPost()
+    func fetchData(){
+        apiClient.fetchData()
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {_ in}){posts in
-                self.posts = posts
+            .sink(receiveCompletion: {_ in}){ data in
+                self.pokemons = data.results
+            }
+            .store(in: &cancellables)
+    }
+    
+    func fetchPokemonDetail(pokemonUrl:String){
+        pokemonSeletectedApi.fetchData(url: pokemonUrl)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {_ in}){ data in
+                print(data)
             }
             .store(in: &cancellables)
     }
