@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = HomeViewModel()
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, dev!")
+            
+            Button("Fetch Data"){
+                viewModel.getDataModel()
+            }
         }
-        .padding()
     }
 }
 
