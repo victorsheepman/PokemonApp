@@ -28,6 +28,23 @@ struct ContentView: View {
                             .foregroundStyle(.white)
                         Spacer()
                     }
+                    HStack {
+                        TextField("search", text: $searchText)
+                            .padding(.leading, 36)
+                            .frame(width:280, height: 42)
+                            .background(.white)
+                            .foregroundStyle(Color("Color/MediumGray"))
+                            .cornerRadius(26)
+                            .overlay(alignment: .leading){
+                                Image("search")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .frame(width: 16, height: 16)
+                                    .padding(.leading,12)
+                                    .foregroundColor(.red)
+                            }
+                        Spacer()
+                    }
                     
                     Spacer()
                 }.padding(.horizontal, 18)
