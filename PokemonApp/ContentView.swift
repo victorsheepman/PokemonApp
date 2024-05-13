@@ -13,16 +13,12 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            List {
-                ForEach(viewModel.pokemons, id: \.name){ pokemon in
-                    Text(pokemon.name)
-                }
+            ZStack{
+                Color("Color/Primary").edgesIgnoringSafeArea(.all)
+             
             }
-            .onAppear{
-                viewModel.fetchData()
-            }
-            .searchable(text: $searchText)
         }
+            
     }
 }
 
