@@ -11,6 +11,15 @@ struct ContentView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var searchText: String = ""
     
+    var pokemons: [PokemonDataModel] {
+        
+        guard !searchText.isEmpty else { return viewModel.pokemons }
+        
+        return viewModel.pokemons.filter {
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+    }
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -45,15 +54,18 @@ struct ContentView: View {
                             }
                         Spacer()
                     }
-                    
+                    //LISTA DE EJEMPLOS - PRONTA ELIMINACION
+                    List {
+                        ForEach(pokemons, id:\.name){ pokemon in
+                            Text(pokemon.name)
+                        }
+                    }
                     Spacer()
                 }.padding(.horizontal, 18)
-                
-                
+            }.onAppear{
+                viewModel.fetchData()
             }
-            
         }
-            
     }
 }
 
