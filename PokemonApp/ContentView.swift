@@ -7,17 +7,27 @@
 
 import SwiftUI
 
+enum SearchByEnum: String {
+    case number = "number"
+    case name   = "name"
+}
+
 struct ContentView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var searchText: String = ""
-    
+    @State private var searchBy: SearchByEnum = .name
     var pokemons: [PokemonDataModel] {
         
-        guard !searchText.isEmpty else { return viewModel.pokemons }
-        
-        return viewModel.pokemons.filter {
-            $0.name.lowercased().contains(searchText.lowercased())
+        if searchBy == .name {
+            guard !searchText.isEmpty else { return viewModel.pokemons }
+            
+            return viewModel.pokemons.filter {
+                $0.name.lowercased().contains(searchText.lowercased())
+            }
+        }else {
+            return viewModel.pokemons
         }
+        
     }
     
     var body: some View {
@@ -40,7 +50,7 @@ struct ContentView: View {
                     HStack(spacing:16) {
                         TextField("search", text: $searchText)
                             .padding(.leading, 36)
-                            .frame(width:280, height: 42)
+                            .frame(width:320, height: 42)
                             .background(.white)
                             .foregroundStyle(Color("Color/MediumGray"))
                             .cornerRadius(26)
@@ -58,22 +68,26 @@ struct ContentView: View {
                                         .foregroundColor(.white)
                                         .frame(width: 36, height: 36) // Dimensiones de 32x32
                                     
-                                    Image(systemName: "number")
+                                Image(searchBy == SearchByEnum.number ? "tag" : "text_format")
+                                        .renderingMode(.template)
                                         .resizable()
                                         .foregroundColor(Color("Color/Primary"))
-                                        .frame(width: 20, height: 20) // Dimensiones de la imagen
+                                        .frame(width: 16, height: 16) // Dimensiones de la imagen
+                            }
+                                .contextMenu {
+                                    Button("Number") { searchBy = .number }
+                                    Button("Name") { searchBy = .name }
                                 }
-                                .padding(.leading, 16)
-                        Spacer()
+                        
                     }
-                    //LISTA DE EJEMPLOS - PRONTA ELIMINACION
                     List {
                         ForEach(pokemons, id:\.name){ pokemon in
                             Text(pokemon.name)
                         }
                     }
                     Spacer()
-                }.padding(.horizontal, 18)
+                }.padding(.horizontal, 12)
+                   
             }.onAppear{
                 viewModel.fetchData()
             }
