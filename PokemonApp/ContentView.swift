@@ -37,7 +37,7 @@ struct ContentView: View {
                             .foregroundStyle(.white)
                         Spacer()
                     }
-                    HStack {
+                    HStack(spacing:16) {
                         TextField("search", text: $searchText)
                             .padding(.leading, 36)
                             .frame(width:280, height: 42)
@@ -50,8 +50,20 @@ struct ContentView: View {
                                     .resizable()
                                     .frame(width: 16, height: 16)
                                     .padding(.leading,12)
-                                    .foregroundColor(.red)
+                                    .foregroundColor(Color("Color/Primary"))
                             }
+                        
+                            ZStack {
+                                    Circle()
+                                        .foregroundColor(.white)
+                                        .frame(width: 36, height: 36) // Dimensiones de 32x32
+                                    
+                                    Image(systemName: "number")
+                                        .resizable()
+                                        .foregroundColor(Color("Color/Primary"))
+                                        .frame(width: 20, height: 20) // Dimensiones de la imagen
+                                }
+                                .padding(.leading, 16)
                         Spacer()
                     }
                     //LISTA DE EJEMPLOS - PRONTA ELIMINACION
