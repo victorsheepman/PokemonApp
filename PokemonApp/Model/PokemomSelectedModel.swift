@@ -9,8 +9,10 @@ import Foundation
 struct PokemomSelectedModel: Codable {
     var sprites:PokemonSprites
     var weight: Int
+    var order:  Int
 }
 
 struct PokemonSprites:Codable {
     var front_default: String?
 }
+

@@ -36,7 +36,7 @@ struct PokemonCardView: View {
                         .foregroundColor(Color("Color/BackgroundGray"))
                         
                         VStack(spacing:0){
-                            Text("#9999")
+                            Text("#\(viewModel.pokemonTag)")
                                 .font(.system(size: 10))
                                 .foregroundStyle(Color("Color/MediumGray"))
                                 .fontWeight(.light)

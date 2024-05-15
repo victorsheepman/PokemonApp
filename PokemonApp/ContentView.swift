@@ -16,7 +16,7 @@ struct ContentView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var searchText: String = ""
     @State private var searchBy: SearchByEnum = .name
-    var pokemons: [PokemonDataModel] {
+    var filteredPokemons: [PokemonDataModel] {
         
         if searchBy == .name {
             guard !searchText.isEmpty else { return viewModel.pokemons }
@@ -103,7 +103,7 @@ struct ContentView: View {
     var cardList: some View{
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: layout,spacing: 12){
-                ForEach(pokemons, id:\.name){ pokemon in
+                ForEach(filteredPokemons, id:\.name){ pokemon in
                        PokemonCardView(pokemon: pokemon)
                 }
             }.padding(.bottom, 65)
