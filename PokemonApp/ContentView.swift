@@ -30,6 +30,13 @@ struct ContentView: View {
         
     }
     
+    let layout = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    
     var body: some View {
         NavigationView{
             ZStack{
@@ -80,17 +87,27 @@ struct ContentView: View {
                                 }
                         
                     }
-                    List {
-                        ForEach(pokemons, id:\.name){ pokemon in
-                            Text(pokemon.name)
-                        }
-                    }
-                    Spacer()
+                    
+                   
+                        cardList
+                    
+                    
                 }.padding(.horizontal, 12)
                    
             }.onAppear{
                 viewModel.fetchData()
             }
+        }
+    }
+    
+    var cardList: some View{
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVGrid(columns: layout,spacing: 12){
+                ForEach(pokemons, id:\.name){ pokemon in
+                       PokemonCardView(pokemon: pokemon)
+                }
+            }.padding(.bottom, 65)
+             .padding(.top,15)
         }
     }
 }

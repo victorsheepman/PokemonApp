@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PokemonCardView: View {
+    var pokemon: PokemonDataModel
+    @StateObject var viewModel = PokemonCardViewModel()
+    
     var body: some View {
         ZStack{
-            Color(.red).edgesIgnoringSafeArea(.all)
+          
             Rectangle()
                 .frame(width: 110, height: 108)
                 .cornerRadius(8)
                 .foregroundColor(.white)
+                .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                 .overlay(
                     ZStack {
                         Rectangle()
@@ -36,12 +41,15 @@ struct PokemonCardView: View {
                                 .foregroundStyle(Color("Color/MediumGray"))
                                 .fontWeight(.light)
                                 .padding(.leading,55)
-                            Image("Silhouette")
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: 72, height: 72)
-                                .foregroundStyle(Color("Color/MediumGray"))
-                            Text("Pokemon Name")
+                            AsyncImage(url:URL(string: viewModel.pokemonSprite)){ phase in
+                                phase
+                                    .resizable()
+                            }placeholder: {
+                                Image("Silhouette")
+                                    .resizable()
+                            }
+                            .frame(width: 72, height: 72)
+                            Text(pokemon.name)
                                 .font(.system(size: 12))
                                 .fontWeight(.medium)
                                 .foregroundStyle(Color("Color/DarkGray"))
@@ -50,10 +58,13 @@ struct PokemonCardView: View {
                 )
            
                 
+        }.onAppear{
+            viewModel.fetchPokemonDetail(pokemonUrl: pokemon.url)
+            print(viewModel.pokemonSprite)
         }
     }
 }
 
 #Preview {
-    PokemonCardView()
+    PokemonCardView(pokemon: PokemonDataModel(name: "carlos", url: "https://placebear.com/1000/1000"))
 }
