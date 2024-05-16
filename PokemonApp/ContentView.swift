@@ -104,7 +104,9 @@ struct ContentView: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: layout,spacing: 12){
                 ForEach(filteredPokemons, id:\.name){ pokemon in
+                    NavigationLink(destination: PokemonDetailView()) {
                        PokemonCardView(pokemon: pokemon)
+                    }
                 }
             }.padding(.bottom, 65)
              .padding(.top,15)
