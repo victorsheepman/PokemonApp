@@ -15,15 +15,13 @@ struct PokemonDetailView: View {
     var stats:[Stat] {
         return viewModel.pokemonDetail.stats
     }
-    var mainType: String{
-        return viewModel.pokemonDetail.types.first?.type.name.capitalizedFirst ?? "Grass"
-    }
+
     
     
     var body: some View {
         NavigationView{
             ZStack{
-                Color("Color/\(mainType)").edgesIgnoringSafeArea(.all)
+                Color("Color/\(viewModel.pokemonDetail.mainType)").edgesIgnoringSafeArea(.all)
                 Image("Pokeball")
                     .renderingMode(.template)
                     .resizable()
@@ -33,7 +31,7 @@ struct PokemonDetailView: View {
                     .foregroundStyle(.white.opacity(0.2))
                 VStack{
                     
-                    AsyncImage(url:URL(string: viewModel.pokemonDetail.sprites.frontDefault)){ phase in
+                    AsyncImage(url:URL(string: viewModel.pokemonDetail.image)){ phase in
                         phase
                           .resizable()
                     }placeholder: {
@@ -64,7 +62,7 @@ struct PokemonDetailView: View {
                                 Text("About")
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/\(mainType)"))
+                                    .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                 HStack(spacing:20){
                                     Spacer()
                                     VStack(spacing:15){
@@ -106,7 +104,7 @@ struct PokemonDetailView: View {
                                 Text("Base Stats")
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/\(mainType)"))
+                                    .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                 
                                 //STATS
                                 VStack{
@@ -115,27 +113,27 @@ struct PokemonDetailView: View {
                                             Text("HP")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             Text("ATK")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             Text("DEF")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             Text("SATK")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             Text("SDEF")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             Text("SPD")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/\(mainType)"))
+                                                .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                         }
 
                                         VStack(alignment: .trailing, spacing: 5){
@@ -149,7 +147,7 @@ struct PokemonDetailView: View {
                                             ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
                                                 ProgressView(value: Double(stat.baseStat), total: 100.0)
                                                     .frame(width: 233)
-                                                    .accentColor(Color("Color/\(mainType)"))
+                                                    .accentColor(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                             }
                                         }
                                   
@@ -191,14 +189,14 @@ struct PokemonDetailView: View {
                 
                 
                 
-                Text(viewModel.pokemonDetail.name)
+                Text(viewModel.pokemonDetail.name.capitalizedFirst)
                     .font(.system(size: 32))
                     .bold()
                     .foregroundStyle(.white)
             }
             Spacer()
             Spacer()
-            Text("#\(viewModel.pokemonDetail.order)")
+            Text("#\(viewModel.pokemonDetail.tag)")
                 .font(.system(size: 16))
                 .bold()
                 .foregroundStyle(.white)
