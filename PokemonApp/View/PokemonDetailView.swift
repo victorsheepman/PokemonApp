@@ -117,6 +117,81 @@ struct PokemonDetailView: View {
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
                                     .foregroundStyle(Color("Color/Grass"))
+                                
+                                //STATS
+                                VStack{
+                                    HStack{
+                                        VStack(alignment: .trailing, spacing: 5){
+                                            Text("HP")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                            Text("ATK")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                            Text("DEF")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                            Text("SATK")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                            Text("SDEF")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                            Text("SPD")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(Color("Color/Grass"))
+                                        }
+
+                                        VStack(alignment: .trailing, spacing: 5){
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                            Text("045")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.regular)
+                                        }
+                                        VStack(alignment: .trailing, spacing: 18){
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                            ProgressView(value: 45.0, total: 100.0)
+                                                .frame(width: 233)
+                                                .accentColor(Color("Color/Grass"))
+                                        }
+                                  
+                                    }
+    
+                                }
                                 Spacer()
                             }.padding(.top,56)
                         }
@@ -132,3 +207,5 @@ struct PokemonDetailView: View {
 #Preview {
     PokemonDetailView()
 }
+
+
