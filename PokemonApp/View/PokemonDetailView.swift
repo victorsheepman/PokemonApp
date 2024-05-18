@@ -44,7 +44,7 @@ struct PokemonDetailView: View {
                    
                     Image("Silhouette")
                     Rectangle()
-                        .frame(width: 352, height: 502)
+                        .frame(width: 352, height: 452)
                         .cornerRadius(8)
                         .foregroundColor(.white)
                         .overlay {
@@ -207,5 +207,3 @@ struct PokemonDetailView: View {
 #Preview {
     PokemonDetailView()
 }
-
-
