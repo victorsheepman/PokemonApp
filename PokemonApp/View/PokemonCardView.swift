@@ -60,7 +60,6 @@ struct PokemonCardView: View {
                 
         }.onAppear{
             viewModel.fetchPokemonDetail(pokemonUrl: pokemon.url)
-            print(viewModel.pokemonSprite)
         }
     }
 }

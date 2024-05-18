@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct PokemonDetailView: View {
+    var url:String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject var viewModel = PokemonDetailViewModel()
     var body: some View {
         NavigationView{
             ZStack{
@@ -184,6 +186,9 @@ struct PokemonDetailView: View {
             }
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: header)
+            .onAppear{
+                viewModel.fetchPokemonDetail(pokemonUrl:url )
+            }
             
     }
     var header: some View{
@@ -223,5 +228,5 @@ struct PokemonDetailView: View {
 }
 
 #Preview {
-    PokemonDetailView()
+    PokemonDetailView(url: "https://pokeapi.co/api/v2/pokemon/2/")
 }
