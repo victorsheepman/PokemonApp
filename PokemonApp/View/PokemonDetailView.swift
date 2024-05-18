@@ -22,6 +22,10 @@ struct PokemonDetailView: View {
                 VStack{
                     HStack(alignment:.center){
                         HStack(spacing:13){
+                            
+                            
+                            
+                            
                             Image("arrow_back")
                                 .renderingMode(.template)
                                 .resizable()
