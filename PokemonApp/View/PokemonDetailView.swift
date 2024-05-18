@@ -48,10 +48,75 @@ struct PokemonDetailView: View {
                         .cornerRadius(8)
                         .foregroundColor(.white)
                         .overlay {
-                            VStack{
+                            VStack(spacing:20){
                                 HStack{
-                                    
+                                    Rectangle()
+                                        .frame(width: 46, height: 20)
+                                        .cornerRadius(10)
+                                        .foregroundStyle(Color("Color/Grass"))
+                                        .overlay {
+                                            Text("Grass")
+                                                .font(.system(size: 10))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(.white)
+                                        }
+                                    Rectangle()
+                                        .frame(width: 46, height: 20)
+                                        .cornerRadius(10)
+                                        .foregroundStyle(Color("Color/Poison"))
+                                        .overlay {
+                                            Text("Poison")
+                                                .font(.system(size: 10))
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(.white)
+                                        }
                                 }
+                                Text("About")
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color("Color/Grass"))
+                                HStack(spacing:20){
+                                    Spacer()
+                                    VStack(spacing:15){
+                                        HStack {
+                                            Image("weight")
+                                                .renderingMode(.template)
+                                                .resizable()
+                                                .frame(width:16, height: 16)
+                                            Text("6,9 kg")
+                                        }
+                                        Text("Weight")
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(Color("Color/MediumGray"))
+                                       
+                                    }
+                                    Divider()
+                                    VStack(spacing:15){
+                                        HStack {
+                                            Image("straighten")
+                                                .renderingMode(.template)
+                                                .resizable()
+                                                .frame(width:16, height: 16)
+                                                .rotationEffect(.degrees(90))
+                                            Text("0,9 m")
+                                        }
+                                        Text("Height")
+                                            .font(.system(size: 12))
+                                            .foregroundStyle(Color("Color/MediumGray"))
+                                       
+                                    }
+
+                                    Spacer()
+                                }.frame(height: 28)
+                                
+                                Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
+                                    .font(.system(size: 12))
+                                    .padding(.top, 18)
+                                
+                                Text("Base Stats")
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color("Color/Grass"))
                                 Spacer()
                             }.padding(.top,56)
                         }
