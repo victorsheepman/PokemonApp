@@ -97,6 +97,7 @@ struct ContentView: View {
             }.onAppear{
                 viewModel.fetchData()
             }
+            
         }
     }
     

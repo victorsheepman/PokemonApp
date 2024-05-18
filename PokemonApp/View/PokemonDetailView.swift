@@ -21,38 +21,8 @@ struct PokemonDetailView: View {
                     .padding(.leading, 170)
                     .foregroundStyle(.white.opacity(0.2))
                 VStack{
-                    HStack(alignment:.center){
-                        HStack(spacing:13){
-                            Button(action: {
-                                
-                                self.presentationMode.wrappedValue.dismiss()
-                            }) {
-                                
-                                Image("arrow_back")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .frame(width: 32, height: 32)
-                                    .foregroundStyle(.white)
-                                
-                            }
-                            
-                            
-                            
-                            
-                            
-                            Text("Bulbasur")
-                                .font(.system(size: 32))
-                                .bold()
-                                .foregroundStyle(.white)
-                        }
-                        Spacer()
-                        Text("#001")
-                            .font(.system(size: 16))
-                            .bold()
-                            .foregroundStyle(.white)
-                       
-                    }
-                    .padding(.horizontal, 24)
+                    
+                    
                    
                     Image("Silhouette")
                     Rectangle()
@@ -212,7 +182,43 @@ struct PokemonDetailView: View {
                 
                
             }
-        }
+        }.navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: header)
+            
+    }
+    var header: some View{
+        HStack(alignment:.center){
+            HStack(spacing:13){
+                Button(action: {
+                    
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    
+                    Image("arrow_back")
+                        .renderingMode(.template)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .foregroundStyle(.white)
+                    
+                }
+                
+                
+                
+                
+                
+                Text("Bulbasur")
+                    .font(.system(size: 32))
+                    .bold()
+                    .foregroundStyle(.white)
+            }
+            Spacer()
+            Spacer()
+            Text("#001")
+                .font(.system(size: 16))
+                .bold()
+                .foregroundStyle(.white)
+           
+        }.frame(width: 350)
     }
 }
 
