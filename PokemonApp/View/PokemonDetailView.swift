@@ -11,10 +11,19 @@ struct PokemonDetailView: View {
     var url:String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @StateObject var viewModel = PokemonDetailViewModel()
+    
+    var stats:[Stat] {
+        return viewModel.pokemonDetail.stats
+    }
+    var mainType: String{
+        return viewModel.pokemonDetail.types.first?.type.name.capitalizedFirst ?? "Grass"
+    }
+    
+    
     var body: some View {
         NavigationView{
             ZStack{
-                Color("Color/Grass").edgesIgnoringSafeArea(.all)
+                Color("Color/\(mainType)").edgesIgnoringSafeArea(.all)
                 Image("Pokeball")
                     .renderingMode(.template)
                     .resizable()
@@ -24,9 +33,14 @@ struct PokemonDetailView: View {
                     .foregroundStyle(.white.opacity(0.2))
                 VStack{
                     
-                    
+                    AsyncImage(url:URL(string: viewModel.pokemonDetail.sprites.frontDefault)){ phase in
+                        phase
+                          .resizable()
+                    }placeholder: {
+                        Image("Silhouette")
+                            .resizable()
+                    }.frame(width: 200, height: 200)
                    
-                    Image("Silhouette")
                     Rectangle()
                         .frame(width: 352, height: 452)
                         .cornerRadius(8)
@@ -34,31 +48,23 @@ struct PokemonDetailView: View {
                         .overlay {
                             VStack(spacing:20){
                                 HStack{
-                                    Rectangle()
-                                        .frame(width: 46, height: 20)
-                                        .cornerRadius(10)
-                                        .foregroundStyle(Color("Color/Grass"))
-                                        .overlay {
-                                            Text("Grass")
-                                                .font(.system(size: 10))
-                                                .fontWeight(.bold)
-                                                .foregroundStyle(.white)
-                                        }
-                                    Rectangle()
-                                        .frame(width: 46, height: 20)
-                                        .cornerRadius(10)
-                                        .foregroundStyle(Color("Color/Poison"))
-                                        .overlay {
-                                            Text("Poison")
-                                                .font(.system(size: 10))
-                                                .fontWeight(.bold)
-                                                .foregroundStyle(.white)
-                                        }
+                                    ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
+                                        Rectangle()
+                                            .frame(width: 46, height: 20)
+                                            .cornerRadius(10)
+                                            .foregroundStyle(Color("Color/\(type.type.name.capitalizedFirst)"))
+                                            .overlay {
+                                                Text("\(type.type.name.capitalizedFirst)")
+                                                    .font(.system(size: 10))
+                                                    .fontWeight(.bold)
+                                                    .foregroundStyle(.white)
+                                            }
+                                    }
                                 }
                                 Text("About")
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/Grass"))
+                                    .foregroundStyle(Color("Color/\(mainType)"))
                                 HStack(spacing:20){
                                     Spacer()
                                     VStack(spacing:15){
@@ -67,7 +73,7 @@ struct PokemonDetailView: View {
                                                 .renderingMode(.template)
                                                 .resizable()
                                                 .frame(width:16, height: 16)
-                                            Text("6,9 kg")
+                                            Text("\(viewModel.pokemonDetail.weight) kg")
                                         }
                                         Text("Weight")
                                             .font(.system(size: 12))
@@ -82,7 +88,7 @@ struct PokemonDetailView: View {
                                                 .resizable()
                                                 .frame(width:16, height: 16)
                                                 .rotationEffect(.degrees(90))
-                                            Text("0,9 m")
+                                            Text("\(viewModel.pokemonDetail.height) m")
                                         }
                                         Text("Height")
                                             .font(.system(size: 12))
@@ -100,7 +106,7 @@ struct PokemonDetailView: View {
                                 Text("Base Stats")
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/Grass"))
+                                    .foregroundStyle(Color("Color/\(mainType)"))
                                 
                                 //STATS
                                 VStack{
@@ -109,68 +115,42 @@ struct PokemonDetailView: View {
                                             Text("HP")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                             Text("ATK")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                             Text("DEF")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                             Text("SATK")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                             Text("SDEF")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                             Text("SPD")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                                .foregroundStyle(Color("Color/Grass"))
+                                                .foregroundStyle(Color("Color/\(mainType)"))
                                         }
 
                                         VStack(alignment: .trailing, spacing: 5){
-                                            Text("045")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
-                                            Text("049")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
-                                            Text("049")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
-                                            Text("065")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
-                                            Text("065")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
-                                            Text("045")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.regular)
+                                            ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
+                                                Text("\(stat.baseStat)")
+                                                    .font(.system(size: 14))
+                                                    .fontWeight(.regular)
+                                            }
                                         }
                                         VStack(alignment: .trailing, spacing: 18){
-                                            ProgressView(value: 45.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
-                                            ProgressView(value: 49.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
-                                            ProgressView(value: 49.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
-                                            ProgressView(value: 65.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
-                                            ProgressView(value: 65.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
-                                            ProgressView(value: 45.0, total: 100.0)
-                                                .frame(width: 233)
-                                                .accentColor(Color("Color/Grass"))
+                                            ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
+                                                ProgressView(value: Double(stat.baseStat), total: 100.0)
+                                                    .frame(width: 233)
+                                                    .accentColor(Color("Color/\(mainType)"))
+                                            }
                                         }
                                   
                                     }
@@ -211,14 +191,14 @@ struct PokemonDetailView: View {
                 
                 
                 
-                Text("Bulbasur")
+                Text(viewModel.pokemonDetail.name)
                     .font(.system(size: 32))
                     .bold()
                     .foregroundStyle(.white)
             }
             Spacer()
             Spacer()
-            Text("#001")
+            Text("#\(viewModel.pokemonDetail.order)")
                 .font(.system(size: 16))
                 .bold()
                 .foregroundStyle(.white)

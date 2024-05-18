@@ -44,6 +44,61 @@ struct PokemonDetailResponseDataModel: Codable {
         case pastTypes = "past_types"
         case species, sprites, stats, types, weight
     }
+    init(
+           abilities: [Ability] = [],
+           baseExperience: Int = 0,
+           cries: Cries = Cries(latest: "", legacy: ""),
+           forms: [Species] = [],
+           gameIndices: [GameIndex] = [],
+           height: Int = 0,
+           heldItems: [JSONAny] = [],
+           id: Int = 0,
+           isDefault: Bool = false,
+           locationAreaEncounters: String = "",
+           moves: [Move] = [],
+           name: String = "",
+           order: Int = 0,
+           pastAbilities: [JSONAny] = [],
+           pastTypes: [JSONAny] = [],
+           species: Species = Species(name: "", url: ""),
+           sprites: Sprites = Sprites(
+               backDefault: "",
+               backFemale: nil,
+               backShiny: "",
+               backShinyFemale: nil,
+               frontDefault: "",
+               frontFemale: nil,
+               frontShiny: "",
+               frontShinyFemale: nil,
+               other: nil,
+               versions: nil,
+               animated: nil
+           ),
+           stats: [Stat] = [],
+           types: [TypeElement] = [],
+           weight: Int = 0
+       ) {
+           self.abilities = abilities
+           self.baseExperience = baseExperience
+           self.cries = cries
+           self.forms = forms
+           self.gameIndices = gameIndices
+           self.height = height
+           self.heldItems = heldItems
+           self.id = id
+           self.isDefault = isDefault
+           self.locationAreaEncounters = locationAreaEncounters
+           self.moves = moves
+           self.name = name
+           self.order = order
+           self.pastAbilities = pastAbilities
+           self.pastTypes = pastTypes
+           self.species = species
+           self.sprites = sprites
+           self.stats = stats
+           self.types = types
+           self.weight = weight
+       }
 }
 
 // MARK: - Ability
