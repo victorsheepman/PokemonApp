@@ -42,22 +42,11 @@ struct ContentView: View {
             ZStack{
                 Color("Color/Primary").edgesIgnoringSafeArea(.all)
                 VStack{
-                    HStack(spacing:12){
-                        Image("Pokeball")
-                            .renderingMode(.template)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.white)
-                        Text("Pokédex")
-                            .fontWeight(.bold)
-                            .font(.system(size: 32))
-                            .foregroundStyle(.white)
-                        Spacer()
-                    }
+                    headerTitle
                     HStack(spacing:16) {
                         TextField("search", text: $searchText)
                             .padding(.leading, 36)
-                            .frame(width:320, height: 42)
+                            .frame(width:360, height: 42)
                             .background(.white)
                             .foregroundStyle(Color("Color/MediumGray"))
                             .cornerRadius(26)
@@ -69,35 +58,29 @@ struct ContentView: View {
                                     .padding(.leading,12)
                                     .foregroundColor(Color("Color/Primary"))
                             }
-                        
-                            ZStack {
-                                    Circle()
-                                        .foregroundColor(.white)
-                                        .frame(width: 36, height: 36) // Dimensiones de 32x32
-                                    
-                                Image(searchBy == SearchByEnum.number ? "tag" : "text_format")
-                                        .renderingMode(.template)
-                                        .resizable()
-                                        .foregroundColor(Color("Color/Primary"))
-                                        .frame(width: 16, height: 16) // Dimensiones de la imagen
-                            }
-                                .contextMenu {
-                                    Button("Number") { searchBy = .number }
-                                    Button("Name") { searchBy = .name }
-                                }
-                        
                     }
-                    
-                   
-                        cardList
-                    
-                    
+                    cardList
                 }.padding(.horizontal, 12)
                    
             }.onAppear{
                 viewModel.fetchData()
             }
             
+        }
+    }
+    
+    var headerTitle: some View {
+        HStack(spacing:12){
+            Image("Pokeball")
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(.white)
+            Text("Pokédex")
+                .fontWeight(.bold)
+                .font(.system(size: 32))
+                .foregroundStyle(.white)
+            Spacer()
         }
     }
     
