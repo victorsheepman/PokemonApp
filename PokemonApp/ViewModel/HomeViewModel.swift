@@ -31,7 +31,6 @@ class HomeViewModel: ObservableObject {
                     self.handleError(error)
                 }
             } receiveValue: { [weak self] dataModel in
-                print("pokemones: \(dataModel.results)")
                 self?.pokemons = dataModel.results
             }
             .store(in: &cancellables)
