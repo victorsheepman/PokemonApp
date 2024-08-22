@@ -9,32 +9,44 @@ import Foundation
 import Combine
 
 
-
-
 class HomeViewModel: ObservableObject {
-    private var cancellables = Set<AnyCancellable>()
-    private let apiClient = ApiClient()
-    private let pokemonSeletectedApi = PokemonSelectedApi()
     
     @Published var pokemons: [PokemonDataModel] = []
     
+    private var cancellables = Set<AnyCancellable>()
+    private let baseURL = Constansts.MainURL.main + Constansts.Endpoints.pokemonList
+    
     func fetchData(){
-        apiClient.fetchData()
+        guard let url = URL(string: baseURL) else {
+            self.handleError(.invalidURL)
+            return
+        }
+        NetworkManager.shared.fetchData(from: url, responseType: PokemonResponseDataModel.self)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {_ in}){ data in
-                self.pokemons = data.results
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.handleError(error)
+                }
+            } receiveValue: { [weak self] dataModel in
+                print("pokemones: \(dataModel.results)")
+                self?.pokemons = dataModel.results
             }
             .store(in: &cancellables)
     }
     
-    func fetchPokemonDetail(pokemonUrl:String){
-        pokemonSeletectedApi.fetchData(url: pokemonUrl)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {_ in}){ data in
-                print(data)
-            }
-            .store(in: &cancellables)
+    private func handleError(_ error: NetworkError) {
+        switch error {
+        case .invalidURL:
+            print("Error: La URL es inválida.")
+        case .requestFailed(let underlyingError):
+            print("Error: La solicitud falló con error: \(underlyingError.localizedDescription)")
+        case .invalidResponse:
+            print("Error: La respuesta del servidor no es válida.")
+        case .decodingError(let decodingError):
+            print("Error: Falló la decodificación de los datos con error: \(decodingError.localizedDescription)")
+        }
     }
-    
-    
 }
