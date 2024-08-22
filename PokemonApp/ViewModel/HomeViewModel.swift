@@ -18,7 +18,7 @@ class HomeViewModel: ObservableObject {
     
     func fetchData(){
         guard let url = URL(string: baseURL) else {
-            self.handleError(.invalidURL)
+            ErrorManager.shared.handler(.invalidURL)
             return
         }
         NetworkManager.shared.fetchData(from: url, responseType: PokemonResponseDataModel.self)
@@ -28,24 +28,11 @@ class HomeViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
-                    self.handleError(error)
+                    ErrorManager.shared.handler(error)
                 }
             } receiveValue: { [weak self] dataModel in
                 self?.pokemons = dataModel.results
             }
             .store(in: &cancellables)
-    }
-    
-    private func handleError(_ error: NetworkError) {
-        switch error {
-        case .invalidURL:
-            print("Error: La URL es inválida.")
-        case .requestFailed(let underlyingError):
-            print("Error: La solicitud falló con error: \(underlyingError.localizedDescription)")
-        case .invalidResponse:
-            print("Error: La respuesta del servidor no es válida.")
-        case .decodingError(let decodingError):
-            print("Error: Falló la decodificación de los datos con error: \(decodingError.localizedDescription)")
-        }
     }
 }
