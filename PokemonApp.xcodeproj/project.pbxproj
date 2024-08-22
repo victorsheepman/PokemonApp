@@ -121,11 +121,9 @@
 		845C2F512BED5ED600F95416 /* PokemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				8476C9192C778CCF00A29B24 /* Modules */,
 				8476C9122C777DF000A29B24 /* Manager */,
-				84CD4DAD2BF53B2F00312044 /* View */,
 				845739392BF12E0E00CBF842 /* Resource */,
-				845739382BF12D4200CBF842 /* Model */,
-				845739332BF11EB500CBF842 /* ViewModel */,
 				845C2F522BED5ED600F95416 /* PokemonAppApp.swift */,
 				845C2F542BED5ED600F95416 /* ContentView.swift */,
 				845C2F562BED5ED700F95416 /* Assets.xcassets */,
@@ -149,6 +147,16 @@
 				8476C9172C778BAF00A29B24 /* ErrorManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		8476C9192C778CCF00A29B24 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				845739382BF12D4200CBF842 /* Model */,
+				84CD4DAD2BF53B2F00312044 /* View */,
+				845739332BF11EB500CBF842 /* ViewModel */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		84CD4DAD2BF53B2F00312044 /* View */ = {

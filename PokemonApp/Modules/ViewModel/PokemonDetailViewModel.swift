@@ -17,7 +17,7 @@ class PokemonDetailViewModel: ObservableObject {
     
     func fetchPokemonDetail(pokemonUrl:String){
         guard let url = URL(string: pokemonUrl) else {
-            self.handleError(.invalidURL)
+            ErrorManager.shared.handler(.invalidURL)
             return
         }
         
@@ -29,25 +29,11 @@ class PokemonDetailViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
-                    self.handleError(error)
+                    ErrorManager.shared.handler(error)
                 }
             } receiveValue: { [weak self] dataModel in
                 self?.pokemonDetail = dataModel
             }
             .store(in: &cancellables)
     }
-    
-    private func handleError(_ error: NetworkError) {
-        switch error {
-        case .invalidURL:
-            print("Error: La URL es inválida.")
-        case .requestFailed(let underlyingError):
-            print("Error: La solicitud falló con error: \(underlyingError.localizedDescription)")
-        case .invalidResponse:
-            print("Error: La respuesta del servidor no es válida.")
-        case .decodingError(let decodingError):
-            print("Error: Falló la decodificación de los datos con error: \(decodingError.localizedDescription)")
-        }
-    }
-
 }
