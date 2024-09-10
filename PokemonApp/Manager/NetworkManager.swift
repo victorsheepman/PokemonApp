@@ -24,7 +24,6 @@ class NetworkManager {
                     promise(.failure(.requestFailed(error)))
                     return
                 }
-                
                 guard let data = data else {
                     promise(.failure(.invalidResponse))
                     return

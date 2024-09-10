@@ -16,7 +16,7 @@ struct PokemonDetailView: View {
         return viewModel.pokemonDetail.stats
     }
 
-    var stastNames = ["HP","ATK","DEF","SATK","SDEF","SPD"]
+    private let stastNames = ["HP","ATK","DEF","SATK","SDEF","SPD"]
     
     
     var body: some View {
