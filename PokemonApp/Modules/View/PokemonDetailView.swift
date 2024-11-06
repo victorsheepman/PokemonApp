@@ -45,27 +45,17 @@ struct PokemonDetailView: View {
                         .cornerRadius(8)
                         .foregroundColor(.white)
                         .overlay {
-                            VStack(spacing:20){
-                                HStack{
-                                    ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
-                                        Rectangle()
-                                            .frame(width: 46, height: 20)
-                                            .cornerRadius(10)
-                                            .foregroundStyle(Color("Color/\(type.type.name.capitalizedFirst)"))
-                                            .overlay {
-                                                Text("\(type.type.name.capitalizedFirst)")
-                                                    .font(.system(size: 10))
-                                                    .fontWeight(.bold)
-                                                    .foregroundStyle(.white)
-                                            }
-                                    }
-                                }
+                            VStack(spacing:20) {
+                                
+                                types
+                                
                                 Text("About")
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
                                     .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                 
-                                aboutView
+                                
+                                about
                                 
                                 Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
                                     .font(.system(size: 12))
@@ -76,55 +66,20 @@ struct PokemonDetailView: View {
                                     .fontWeight(.bold)
                                     .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                 
-                                //STATS
-                                statsView
+                                statsCharts
+                                
                                 Spacer()
+                                
                             }.padding(.top,56)
                         }
-
                 }
-                
-               
             }
         }.navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: header)
             .onAppear{
                 viewModel.fetchPokemonDetail(pokemonUrl:url )
             }
-            
-    }
-    
-    var statsView: some View {
-        VStack{
-            HStack{
-                VStack(alignment: .trailing, spacing: 5){
-                    ForEach(stastNames, id: \.self) { name in
-                        Text("\(name)")
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                    }
-                }
 
-                VStack(alignment: .trailing, spacing: 5){
-                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
-                        Text("\(stat.baseStat)")
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                    }
-                }
-                
-                VStack(alignment: .trailing, spacing: 18){
-                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
-                        ProgressView(value: Double(stat.baseStat), total: 100.0)
-                            .frame(width: 233)
-                            .accentColor(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                    }
-                }
-          
-            }
-
-        }
     }
     var header: some View{
         HStack(alignment:.center){
@@ -133,7 +88,6 @@ struct PokemonDetailView: View {
                     
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
-                    
                     Image("arrow_back")
                         .renderingMode(.template)
                         .resizable()
@@ -141,11 +95,6 @@ struct PokemonDetailView: View {
                         .foregroundStyle(.white)
                     
                 }
-                
-                
-                
-                
-                
                 Text(viewModel.pokemonDetail.name.capitalizedFirst)
                     .font(.system(size: 32))
                     .bold()
@@ -161,7 +110,24 @@ struct PokemonDetailView: View {
         }.frame(width: 350)
     }
     
-    var aboutView: some View {
+    var types: some View {
+        HStack{
+            ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
+                Rectangle()
+                    .frame(width: 46, height: 20)
+                    .cornerRadius(10)
+                    .foregroundStyle(Color("Color/\(type.type.name.capitalizedFirst)"))
+                    .overlay {
+                        Text("\(type.type.name.capitalizedFirst)")
+                            .font(.system(size: 10))
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
+            }
+        }
+    }
+    
+    var about: some View {
         HStack(spacing:20){
             Spacer()
             VStack(spacing:15){
@@ -196,6 +162,41 @@ struct PokemonDetailView: View {
             Spacer()
         }.frame(height: 28)
     }
+    
+    var statsCharts: some View {
+        VStack{
+            HStack{
+                VStack(alignment: .trailing, spacing: 5){
+                    ForEach(stastNames, id: \.self) { name in
+                        Text("\(name)")
+                            .font(.system(size: 14))
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
+                    }
+                }
+
+                VStack(alignment: .trailing, spacing: 5){
+                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
+                        Text("\(stat.baseStat)")
+                            .font(.system(size: 14))
+                            .fontWeight(.regular)
+                    }
+                }
+                
+                VStack(alignment: .trailing, spacing: 18){
+                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
+                        ProgressView(value: Double(stat.baseStat), total: 100.0)
+                            .frame(width: 233)
+                            .accentColor(Color("Color/\(viewModel.pokemonDetail.mainType)"))
+                    }
+                }
+          
+            }
+
+        }
+    }
+    
+   
 }
 
 #Preview {
