@@ -94,8 +94,9 @@ struct ContentView: View {
                        PokemonCardView(pokemon: pokemon)
                     }
                 }
-            }.padding(.bottom, 65)
-             .padding(.top,15)
+            }
+            .padding(.bottom, 65)
+            .padding(.top,15)
         }
     }
 }
