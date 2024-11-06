@@ -28,7 +28,6 @@ struct ContentView: View {
     @State private var searchBy: SearchByEnum = .name
 
     var filteredPokemons: [PokemonDataModel] {
-        
         if searchBy == .name {
             guard !searchText.isEmpty else { return viewModel.pokemons }
             
@@ -38,7 +37,6 @@ struct ContentView: View {
         }else {
             return viewModel.pokemons
         }
-        
     }
         
     var body: some View {

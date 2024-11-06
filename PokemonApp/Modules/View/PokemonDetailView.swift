@@ -64,6 +64,7 @@ struct PokemonDetailView: View {
                                     .font(.system(size: 16))
                                     .fontWeight(.bold)
                                     .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
+                                
                                 aboutView
                                 
                                 Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
@@ -112,6 +113,7 @@ struct PokemonDetailView: View {
                             .fontWeight(.regular)
                     }
                 }
+                
                 VStack(alignment: .trailing, spacing: 18){
                     ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
                         ProgressView(value: Double(stat.baseStat), total: 100.0)
