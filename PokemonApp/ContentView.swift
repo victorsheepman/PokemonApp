@@ -12,12 +12,22 @@ enum SearchByEnum: String {
     case name   = "name"
 }
 
+
+let layout = [
+    GridItem(.flexible()),
+    GridItem(.flexible()),
+    GridItem(.flexible())
+]
+
+
 struct ContentView: View {
+
     @StateObject var viewModel = HomeViewModel()
+
     @State var searchText: String = ""
     @State private var searchBy: SearchByEnum = .name
+
     var filteredPokemons: [PokemonDataModel] {
-        
         if searchBy == .name {
             guard !searchText.isEmpty else { return viewModel.pokemons }
             
@@ -27,16 +37,8 @@ struct ContentView: View {
         }else {
             return viewModel.pokemons
         }
-        
     }
-    
-    let layout = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    
+        
     var body: some View {
         NavigationView{
             ZStack{
@@ -92,8 +94,9 @@ struct ContentView: View {
                        PokemonCardView(pokemon: pokemon)
                     }
                 }
-            }.padding(.bottom, 65)
-             .padding(.top,15)
+            }
+            .padding(.bottom, 65)
+            .padding(.top,15)
         }
     }
 }
