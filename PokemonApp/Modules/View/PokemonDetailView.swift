@@ -9,18 +9,16 @@ import SwiftUI
 
 struct PokemonDetailView: View {
     var url:String
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @StateObject var viewModel = PokemonDetailViewModel()
     
-    var stats:[Stat] {
-        return viewModel.pokemonDetail.stats
-    }
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel = PokemonDetailViewModel()
+
 
     private let stastNames = ["HP","ATK","DEF","SATK","SDEF","SPD"]
     
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 Color("Color/\(viewModel.pokemonDetail.mainType)").edgesIgnoringSafeArea(.all)
                 Image("Pokeball")
@@ -74,41 +72,36 @@ struct PokemonDetailView: View {
                         }
                 }
             }
-        }.navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: header)
-            .onAppear{
-                viewModel.fetchPokemonDetail(pokemonUrl:url )
-            }
-
-    }
-    var header: some View{
-        HStack(alignment:.center){
-            HStack(spacing:13){
-                Button(action: {
-                    
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image("arrow_back")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 32, height: 32)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .tint(.white)
+                    }
+                    Text(viewModel.pokemonDetail.name.capitalizedFirst)
+                        .font(.largeTitle.bold())
                         .foregroundStyle(.white)
-                    
                 }
-                Text(viewModel.pokemonDetail.name.capitalizedFirst)
-                    .font(.system(size: 32))
-                    .bold()
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Text("#\(viewModel.pokemonDetail.tag)")
+                    .font(.callout.bold())
                     .foregroundStyle(.white)
             }
-            Spacer()
-            Spacer()
-            Text("#\(viewModel.pokemonDetail.tag)")
-                .font(.system(size: 16))
-                .bold()
-                .foregroundStyle(.white)
-           
-        }.frame(width: 350)
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear{
+            viewModel.fetchPokemonDetail(pokemonUrl:url )
+        }
+
     }
+   
     
     var types: some View {
         HStack{
