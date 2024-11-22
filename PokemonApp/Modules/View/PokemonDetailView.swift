@@ -86,13 +86,9 @@ struct PokemonDetailView: View {
                                         typeCard(type.type)
                                     }
                                 }
-                                
                                
                                 about
-                                Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
-                                    .font(.system(size: 12))
-                                    .padding(.top, 18)
-                                
+                              
                                 baseStats
                                 
                                 Spacer()
@@ -138,7 +134,11 @@ struct PokemonDetailView: View {
                 .foregroundStyle(viewModel.pokemonDetail.color)
             HStack(alignment: .center, spacing:20) {
                sizeList
-            }.frame(height: 28)
+            }
+            .frame(height: 28)
+            
+            Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
+                .font(.caption)
         }
     }
     
