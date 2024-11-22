@@ -28,6 +28,7 @@
 		84B1EE1B2BF6A7B2001A07F8 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1EE1A2BF6A7B2001A07F8 /* PokemonDetailView.swift */; };
 		84CD4DAF2BF53B4500312044 /* PokemonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4DAE2BF53B4500312044 /* PokemonCardView.swift */; };
 		84CD4DB12BF54A3800312044 /* PokemonCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CD4DB02BF54A3800312044 /* PokemonCardViewModel.swift */; };
+		84EBBCAF2CF0FC2F000ECA25 /* PokemonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBBCAE2CF0FC2F000ECA25 /* PokemonInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		84B1EE1A2BF6A7B2001A07F8 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		84CD4DAE2BF53B4500312044 /* PokemonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCardView.swift; sourceTree = "<group>"; };
 		84CD4DB02BF54A3800312044 /* PokemonCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCardViewModel.swift; sourceTree = "<group>"; };
+		84EBBCAE2CF0FC2F000ECA25 /* PokemonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				84CD4DAE2BF53B4500312044 /* PokemonCardView.swift */,
 				84B1EE1A2BF6A7B2001A07F8 /* PokemonDetailView.swift */,
+				84EBBCAE2CF0FC2F000ECA25 /* PokemonInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				84CD4DB12BF54A3800312044 /* PokemonCardViewModel.swift in Sources */,
 				842F656D2BF9348B00F0091A /* JSONAny.swift in Sources */,
 				8476C9142C777DFE00A29B24 /* NetworkManager.swift in Sources */,
+				84EBBCAF2CF0FC2F000ECA25 /* PokemonInfoView.swift in Sources */,
 				845739322BF11EB000CBF842 /* HomeViewModel.swift in Sources */,
 				842F656F2BF9364900F0091A /* JSONCodingKey.swift in Sources */,
 				842F65772BF94A9D00F0091A /* DetailModelMapper.swift in Sources */,

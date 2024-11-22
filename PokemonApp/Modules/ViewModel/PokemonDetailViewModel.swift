@@ -15,8 +15,6 @@ class PokemonDetailViewModel: ObservableObject {
     @Published var pokemonDetail: DetailModel = DetailModel.init()
     
 
-
-    let stastNames = ["HP","ATK","DEF","SATK","SDEF","SPD"]
     
     var sizes: [(PokemonSize, Int)] {
           [
