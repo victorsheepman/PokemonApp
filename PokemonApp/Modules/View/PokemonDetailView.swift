@@ -45,7 +45,11 @@ struct PokemonDetailView: View {
                         .overlay {
                             VStack(spacing:20) {
                                 
-                                types
+                                HStack{
+                                    ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
+                                        typeCard(type.type)
+                                    }
+                                }
                                 
                                 Text("About")
                                     .font(.system(size: 16))
@@ -102,24 +106,6 @@ struct PokemonDetailView: View {
 
     }
    
-    
-    var types: some View {
-        HStack{
-            ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
-                Rectangle()
-                    .frame(width: 46, height: 20)
-                    .cornerRadius(10)
-                    .foregroundStyle(Color("Color/\(type.type.name.capitalizedFirst)"))
-                    .overlay {
-                        Text("\(type.type.name.capitalizedFirst)")
-                            .font(.system(size: 10))
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
-                    }
-            }
-        }
-    }
-    
     var about: some View {
         HStack(spacing:20){
             Spacer()
@@ -189,6 +175,17 @@ struct PokemonDetailView: View {
         }
     }
     
+    func typeCard(_ specie: Species) -> some View {
+        Rectangle()
+            .frame(width: 51, height: 20)
+            .cornerRadius(10)
+            .foregroundStyle(specie.color)
+            .overlay {
+                Text(specie.name.capitalizedFirst)
+                    .font(.caption2.bold())
+                    .foregroundStyle(.white)
+            }
+    }
    
 }
 

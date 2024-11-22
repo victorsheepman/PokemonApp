@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - PokemonDetailResponseDataModel
 struct PokemonDetailResponseDataModel: Codable {
@@ -118,6 +119,10 @@ struct Ability: Codable {
 struct Species: Codable {
     let name: String
     let url: String
+    
+    var color: Color {
+        Color("Color/\(name.capitalizedFirst)")
+    }
 }
 
 // MARK: - Cries
