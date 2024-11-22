@@ -87,26 +87,13 @@ struct PokemonDetailView: View {
                                     }
                                 }
                                 
-                                Text("About")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                                
-                                
-                                HStack(alignment: .center, spacing:20) {
-                                    sizeList
-                                }.frame(height: 28)
-                                
+                               
+                                about
                                 Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
                                     .font(.system(size: 12))
                                     .padding(.top, 18)
                                 
-                                Text("Base Stats")
-                                    .font(.system(size: 16))
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                                
-                                statsCharts
+                                baseStats
                                 
                                 Spacer()
                                 
@@ -144,6 +131,17 @@ struct PokemonDetailView: View {
 
     }
     
+    var about: some View {
+        VStack(spacing: 16) {
+            Text("About")
+                .font(.callout.bold())
+                .foregroundStyle(viewModel.pokemonDetail.color)
+            HStack(alignment: .center, spacing:20) {
+               sizeList
+            }.frame(height: 28)
+        }
+    }
+    
     var sizeList: some View {
         ForEach(viewModel.sizes.indices, id: \.self) { index in
             let (size, value) = viewModel.sizes[index]
@@ -154,36 +152,40 @@ struct PokemonDetailView: View {
         }
     }
     
-    var statsCharts: some View {
-        VStack{
-            HStack{
+    var baseStats: some View {
+        VStack {
+            Text("Base Stats")
+                .font(.callout.bold())
+                .foregroundStyle(viewModel.pokemonDetail.color)
+            
+            HStack {
                 VStack(alignment: .trailing, spacing: 5){
-                    ForEach(stastNames, id: \.self) { name in
-                        Text("\(name)")
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                    }
+                   statsList
                 }
-
-                VStack(alignment: .trailing, spacing: 5){
-                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
-                        Text("\(stat.baseStat)")
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                    }
-                }
-                
-                VStack(alignment: .trailing, spacing: 18){
-                    ForEach(viewModel.pokemonDetail.stats, id: \.stat.name) { stat in
-                        ProgressView(value: Double(stat.baseStat), total: 100.0)
-                            .frame(width: 233)
-                            .accentColor(Color("Color/\(viewModel.pokemonDetail.mainType)"))
-                    }
-                }
-          
             }
-
+        }
+    }
+    
+    var statsList: some View {
+        ForEach(viewModel.pokemonDetail.stats.indices, id: \.self) { index in
+            let stat = viewModel.pokemonDetail.stats[index]
+            chartStat(stat, name: viewModel.stastNames[index])
+        }
+    }
+    
+    func chartStat(_ stat: Stat, name: String) -> some View {
+        HStack {
+            Group {
+                Text("\(name)")
+                    .fontWeight(.bold)
+                    .foregroundStyle(viewModel.pokemonDetail.color)
+                
+                Text("\(stat.baseStat)")
+            }.font(.subheadline)
+            
+            ProgressView(value: Double(stat.baseStat), total: 100.0)
+                .frame(width: 233)
+                .accentColor(viewModel.pokemonDetail.color)
         }
     }
     
