@@ -15,6 +15,8 @@ class PokemonDetailViewModel: ObservableObject {
     @Published var pokemonDetail: DetailModel = DetailModel.init()
     
     
+    
+    
     func fetchPokemonDetail(pokemonUrl:String){
         guard let url = URL(string: pokemonUrl) else {
             ErrorManager.shared.handler(.invalidURL)
