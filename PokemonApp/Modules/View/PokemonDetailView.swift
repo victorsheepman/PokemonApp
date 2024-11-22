@@ -94,9 +94,7 @@ struct PokemonDetailView: View {
                                 
                                 
                                 HStack(alignment: .center, spacing:20) {
-                                    size(.weight, viewModel.pokemonDetail.weight)
-                                    Divider()
-                                    size(.height, viewModel.pokemonDetail.height)
+                                    sizeList
                                 }.frame(height: 28)
                                 
                                 Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
@@ -145,7 +143,17 @@ struct PokemonDetailView: View {
         }
 
     }
-   
+    
+    var sizeList: some View {
+        ForEach(viewModel.sizes.indices, id: \.self) { index in
+            let (size, value) = viewModel.sizes[index]
+            sizeInfo(size, value)
+            if index != viewModel.sizes.count - 1 {
+                Divider()
+            }
+        }
+    }
+    
     var statsCharts: some View {
         VStack{
             HStack{
@@ -191,7 +199,7 @@ struct PokemonDetailView: View {
             }
     }
     
-    func size(_ size: PokemonSize, _ value: Int) -> some View {
+    func sizeInfo(_ size: PokemonSize, _ value: Int) -> some View {
         VStack(spacing: 10){
             HStack {
                 size.icon
@@ -203,7 +211,6 @@ struct PokemonDetailView: View {
             Text(size.rawValue)
                 .font(.caption)
                 .foregroundStyle(Color("Color/MediumGray"))
-           
         }
     }
    
