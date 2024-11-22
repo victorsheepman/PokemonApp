@@ -7,6 +7,42 @@
 
 import SwiftUI
 
+enum PokemonSize: String {
+    case weight = "Weight"
+    case height = "Height"
+    
+    var icon: Image {
+        switch self {
+        case .weight:
+            return Image(systemName: "scalemass")
+        case .height:
+            return Image(systemName: "pencil.and.ruler")
+        }
+    }
+    
+    var symbol: String {
+        switch self {
+        case .weight:
+            return "kg"
+        case .height:
+            return "m"
+        }
+    }
+}
+
+enum BudgetCategory: String, CaseIterable, Identifiable, Codable {
+    
+    case entertainment = "Entertainment"
+    case bills = "Bills"
+    case diningOut = "Dining Out"
+    case personalCare = "Personal Care"
+    case groceries = "groceries"
+    case transportation = "Transportation"
+    case education = "Education"
+    
+    var id: String { rawValue }
+}
+
 struct PokemonDetailView: View {
     var url:String
     
@@ -57,7 +93,11 @@ struct PokemonDetailView: View {
                                     .foregroundStyle(Color("Color/\(viewModel.pokemonDetail.mainType)"))
                                 
                                 
-                                about
+                                HStack(alignment: .center, spacing:20) {
+                                    size(.weight, viewModel.pokemonDetail.weight)
+                                    Divider()
+                                    size(.height, viewModel.pokemonDetail.height)
+                                }.frame(height: 28)
                                 
                                 Text("There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.")
                                     .font(.system(size: 12))
@@ -106,42 +146,6 @@ struct PokemonDetailView: View {
 
     }
    
-    var about: some View {
-        HStack(spacing:20){
-            Spacer()
-            VStack(spacing:15){
-                HStack {
-                    Image("weight")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width:16, height: 16)
-                    Text("\(viewModel.pokemonDetail.weight) kg")
-                }
-                Text("Weight")
-                    .font(.system(size: 12))
-                    .foregroundStyle(Color("Color/MediumGray"))
-               
-            }
-            Divider()
-            VStack(spacing:15){
-                HStack {
-                    Image("straighten")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width:16, height: 16)
-                        .rotationEffect(.degrees(90))
-                    Text("\(viewModel.pokemonDetail.height) m")
-                }
-                Text("Height")
-                    .font(.system(size: 12))
-                    .foregroundStyle(Color("Color/MediumGray"))
-               
-            }
-
-            Spacer()
-        }.frame(height: 28)
-    }
-    
     var statsCharts: some View {
         VStack{
             HStack{
@@ -185,6 +189,22 @@ struct PokemonDetailView: View {
                     .font(.caption2.bold())
                     .foregroundStyle(.white)
             }
+    }
+    
+    func size(_ size: PokemonSize, _ value: Int) -> some View {
+        VStack(spacing: 10){
+            HStack {
+                size.icon
+                    .resizable()
+                    .frame(width:16, height: 16)
+                Text("\(value) \(size.symbol)")
+                    .font(.caption)
+            }
+            Text(size.rawValue)
+                .font(.caption)
+                .foregroundStyle(Color("Color/MediumGray"))
+           
+        }
     }
    
 }
