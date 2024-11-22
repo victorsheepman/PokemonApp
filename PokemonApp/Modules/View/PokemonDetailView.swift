@@ -81,11 +81,7 @@ struct PokemonDetailView: View {
                         .overlay {
                             VStack(spacing:20) {
                                 
-                                HStack{
-                                    ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
-                                        typeCard(type.type)
-                                    }
-                                }
+                                listType
                                
                                 about
                               
@@ -127,13 +123,21 @@ struct PokemonDetailView: View {
 
     }
     
+    var listType: some View {
+        HStack{
+            ForEach(viewModel.pokemonDetail.types, id: \.slot) { type in
+                typeCard(type.type)
+            }
+        }
+    }
+    
     var about: some View {
         VStack(spacing: 16) {
             Text("About")
                 .font(.callout.bold())
                 .foregroundStyle(viewModel.pokemonDetail.color)
             HStack(alignment: .center, spacing:20) {
-               sizeList
+                listSize
             }
             .frame(height: 28)
             
@@ -142,7 +146,7 @@ struct PokemonDetailView: View {
         }
     }
     
-    var sizeList: some View {
+    var listSize: some View {
         ForEach(viewModel.sizes.indices, id: \.self) { index in
             let (size, value) = viewModel.sizes[index]
             sizeInfo(size, value)
@@ -160,13 +164,13 @@ struct PokemonDetailView: View {
             
             HStack {
                 VStack(alignment: .trailing, spacing: 5){
-                   statsList
+                    listStats
                 }
             }
         }
     }
     
-    var statsList: some View {
+    var listStats: some View {
         ForEach(viewModel.pokemonDetail.stats.indices, id: \.self) { index in
             let stat = viewModel.pokemonDetail.stats[index]
             chartStat(stat, name: viewModel.stastNames[index])
