@@ -25,7 +25,7 @@ class PokemonCardOO: ObservableObject {
             return
         }
        
-        NetworkManager.shared.fetchData(from: url, responseType: PokemomSelectedModel.self)
+        NetworkManager.shared.fetchData(from: url, responseType: PokemomCardDO.self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
