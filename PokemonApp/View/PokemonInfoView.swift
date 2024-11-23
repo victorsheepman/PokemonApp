@@ -33,7 +33,7 @@ enum PokemonSize: String {
 
 struct PokemonInfoView: View {
     
-    var pokemon: DetailModel
+    var pokemon: PokemonDetailDO
     var sizes: [(PokemonSize, Int)]
     
     private let statNames = ["HP","ATK","DEF","SATK","SDEF","SPD"]
