@@ -16,6 +16,10 @@ class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let baseURL = Constansts.MainURL.main + Constansts.Endpoints.pokemonList
     
+    init(){
+       fetchData()
+    }
+    
     func fetchData(){
         guard let url = URL(string: baseURL) else {
             ErrorManager.shared.handler(.invalidURL)
