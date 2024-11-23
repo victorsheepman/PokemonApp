@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct PokemonCardView: View {
-    var pokemon: PokemonDataModel
+    var pokemon: PokemonDO
     @StateObject var viewModel = PokemonCardOO()
     
     var body: some View {
@@ -68,5 +68,5 @@ struct PokemonCardView: View {
 }
 
 #Preview {
-    PokemonCardView(pokemon: PokemonDataModel(name: "carlos", url: "https://placebear.com/1000/1000"))
+    PokemonCardView(pokemon: PokemonDO(name: "carlos", url: "https://placebear.com/1000/1000"))
 }

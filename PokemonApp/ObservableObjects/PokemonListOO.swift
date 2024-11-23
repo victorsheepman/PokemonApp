@@ -11,9 +11,9 @@ import Combine
 
 class PokemonListOO: ObservableObject {
     
-    @Published var pokemons: [PokemonDataModel] = []
+    @Published var pokemons: [PokemonDO] = []
     @Published var searchText: String = ""
-    @Published var filteredPokemons: [PokemonDataModel] = []
+    @Published var filteredPokemons: [PokemonDO] = []
     
     private var cancellables = Set<AnyCancellable>()
     private let baseURL = Constansts.MainURL.main + Constansts.Endpoints.pokemonList
@@ -41,7 +41,7 @@ class PokemonListOO: ObservableObject {
             ErrorManager.shared.handler(.invalidURL)
             return
         }
-        NetworkManager.shared.fetchData(from: url, responseType: PokemonResponseDataModel.self)
+        NetworkManager.shared.fetchData(from: url, responseType: PokemonsResponseDO.self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
