@@ -10,7 +10,7 @@ import Combine
 
 struct PokemonCardView: View {
     var pokemon: PokemonDataModel
-    @StateObject var viewModel = PokemonCardViewModel()
+    @StateObject var viewModel = PokemonCardOO()
     
     var body: some View {
         Rectangle()
@@ -35,7 +35,7 @@ struct PokemonCardView: View {
                     
                     content
                 }.onAppear {
-                    if viewModel.onFirst {
+                    if !viewModel.isDataLoaded {
                         viewModel.fetchPokemonDetail(pokemonUrl: pokemon.url)
                     }
                 }
