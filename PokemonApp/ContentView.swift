@@ -9,39 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @StateObject var viewModel = HomeViewModel()
-
-    @State var searchText: String = ""
-        
+    @StateObject var viewModel = PokemonListOO()
+    
     var body: some View {
         NavigationView{
             ZStack{
                 Color("Color/Primary").edgesIgnoringSafeArea(.all)
                 VStack{
                     HStack(spacing:12){
-                        Group {
-                            Image("Pokeball")
-                                .renderingMode(.template)
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                            
-                            Text("Pokédex")
-                                .font(.system(size: 32).bold())
-                        }.foregroundColor(.white)
+                        headerTitle
                         Spacer()
                     }
-                    TextField("search", text: $searchText)
-                        .padding(.leading, 36)
-                        .frame(height: 42)
-                        .background(.white)
-                        .foregroundStyle(Color("Color/MediumGray"))
-                        .cornerRadius(26)
-                        .overlay(alignment: .leading){
-                            Image(systemName: "magnifyingglass")
-                                .padding(.leading,12)
-                                .foregroundColor(Color("Color/Primary"))
-                        }
-                    
+                    searchBar
                     cardList
                 }.padding(.horizontal, 12)
                 
@@ -52,7 +31,7 @@ struct ContentView: View {
     var cardList: some View{
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Constansts.layout, spacing: 12){
-                ForEach(filteredPokemons, id:\.name){ pokemon in
+                ForEach(viewModel.filteredPokemons, id:\.name){ pokemon in
                     NavigationLink(destination: PokemonDetailView(url: pokemon.url)) {
                        PokemonCardView(pokemon: pokemon)
                     }
@@ -63,16 +42,33 @@ struct ContentView: View {
         }
     }
     
+    var headerTitle: some View {
+        Group {
+            Image("Pokeball")
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 24, height: 24)
+            
+            Text("Pokédex")
+                .font(.system(size: 32).bold())
+        }.foregroundColor(.white)
+    }
     
-    var filteredPokemons: [PokemonDataModel] {
+    var searchBar: some View {
+        TextField("search", text: $viewModel.searchText)
+            .padding(.leading, 36)
+            .frame(height: 42)
+            .background(.white)
+            .foregroundStyle(Color("Color/MediumGray"))
+            .cornerRadius(26)
+            .overlay(alignment: .leading){
+                Image(systemName: "magnifyingglass")
+                    .padding(.leading,12)
+                    .foregroundColor(Color("Color/Primary"))
+            }
         
-        guard !searchText.isEmpty else { return viewModel.pokemons }
-        
-        return viewModel.pokemons.filter {
-            $0.name.lowercased().contains(searchText.lowercased())
-        }
-        
-    } 
+    }
+
 }
 
 #Preview {
