@@ -14,6 +14,17 @@ class PokemonDetailViewModel: ObservableObject {
     
     @Published var pokemonDetail: DetailModel = DetailModel.init()
     
+
+    
+    var sizes: [(PokemonSize, Int)] {
+          [
+              (PokemonSize.weight, pokemonDetail.weight),
+              (PokemonSize.height, pokemonDetail.height)
+          ]
+      }
+    
+    
+
     
     func fetchPokemonDetail(pokemonUrl:String){
         guard let url = URL(string: pokemonUrl) else {

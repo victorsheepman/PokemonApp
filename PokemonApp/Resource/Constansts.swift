@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Constansts {
     struct MainURL{
@@ -20,4 +21,12 @@ struct Constansts {
         static let favorite   = "Favoritos"
         static let setting    = "Ajustes"
     }
+    
+    static let layout = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    
 }

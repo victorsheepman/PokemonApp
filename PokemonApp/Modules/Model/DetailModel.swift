@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct DetailModel{
     let name:String
@@ -36,4 +37,8 @@ struct DetailModel{
           self.weight = weight
           self.height = height
       }
+    
+    var color: Color {
+        Color("Color/\(mainType)")
+    }
 }
