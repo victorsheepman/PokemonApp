@@ -1,15 +1,15 @@
 //
-//  PokemonDetailDataModel.swift
+//  PokemonResponseDO.swift
 //  PokemonApp
 //
-//  Created by Victor Marquez on 18/5/24.
+//  Created by Victor Marquez on 23/11/24.
 //
 
 import Foundation
 import SwiftUI
 
-// MARK: - PokemonDetailResponseDataModel
-struct PokemonDetailResponseDataModel: Codable {
+
+struct PokemonResponseDO: Codable {
     let abilities: [Ability]
     let baseExperience: Int
     let cries: Cries

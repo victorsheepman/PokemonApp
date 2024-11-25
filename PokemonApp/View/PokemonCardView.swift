@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct PokemonCardView: View {
-    var pokemon: PokemonDataModel
-    @StateObject var viewModel = PokemonCardViewModel()
+    var pokemon: PokemonDO
+    @StateObject var viewModel = PokemonCardOO()
     
     var body: some View {
         Rectangle()
@@ -35,7 +35,7 @@ struct PokemonCardView: View {
                     
                     content
                 }.onAppear {
-                    if viewModel.onFirst {
+                    if !viewModel.isDataLoaded {
                         viewModel.fetchPokemonDetail(pokemonUrl: pokemon.url)
                     }
                 }
@@ -68,5 +68,5 @@ struct PokemonCardView: View {
 }
 
 #Preview {
-    PokemonCardView(pokemon: PokemonDataModel(name: "carlos", url: "https://placebear.com/1000/1000"))
+    PokemonCardView(pokemon: PokemonDO(name: "carlos", url: "https://placebear.com/1000/1000"))
 }

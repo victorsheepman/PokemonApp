@@ -1,14 +1,14 @@
 //
-//  DetailModel.swift
+//  PokemonDetailDO.swift
 //  PokemonApp
 //
-//  Created by Victor Marquez on 18/5/24.
+//  Created by Victor Marquez on 23/11/24.
 //
 
 import Foundation
 import SwiftUI
 
-struct DetailModel{
+struct PokemonDetailDO {
     let name:String
     let tag: Int
     let stats:[Stat]

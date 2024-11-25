@@ -10,15 +10,16 @@ import SwiftUI
 
 
 struct PokemonDetailView: View {
+    
     var url:String
     
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel = PokemonDetailViewModel()
+    @StateObject var viewModel = PokemonDetailOO()
     
     var body: some View {
         NavigationStack{
             ZStack{
-                Color("Color/\(viewModel.pokemonDetail.mainType)").edgesIgnoringSafeArea(.all)
+                viewModel.pokemonDetail.color.edgesIgnoringSafeArea(.all)
                 Image("Pokeball")
                     .renderingMode(.template)
                     .resizable()
